@@ -3,6 +3,9 @@
     "C_Cpp.intelliSenseEngine": "Tag Parser",
     "files.associations": {
         "*.c": "c",
-        "main.h": "c"
+        "main.h": "c",
+        "stm32f1xx_hal.h": "c",
+        "log.h": "c",
+        "fcntl.h": "c"
     }
 }
