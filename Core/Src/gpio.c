@@ -53,30 +53,28 @@ void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, FSYNC_Pin|USB_ENABLE_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, ICM_FSYNC_Pin|SPI1_CS_Pin|USB_ENABLE_Pin|LED_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pins : PC13 PC14 PC15 */
   GPIO_InitStruct.Pin = GPIO_PIN_13|GPIO_PIN_14|GPIO_PIN_15;
   GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : INT1_Pin */
-  GPIO_InitStruct.Pin = INT1_Pin;
+  /*Configure GPIO pin : ICM_INT1_Pin */
+  GPIO_InitStruct.Pin = ICM_INT1_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
   GPIO_InitStruct.Pull = GPIO_PULLUP;
-  HAL_GPIO_Init(INT1_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(ICM_INT1_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : FSYNC_Pin USB_ENABLE_Pin */
-  GPIO_InitStruct.Pin = FSYNC_Pin|USB_ENABLE_Pin;
+  /*Configure GPIO pins : ICM_FSYNC_Pin SPI1_CS_Pin USB_ENABLE_Pin LED_Pin */
+  GPIO_InitStruct.Pin = ICM_FSYNC_Pin|SPI1_CS_Pin|USB_ENABLE_Pin|LED_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PA2 PA3 PA8 PA9
-                           PA15 */
-  GPIO_InitStruct.Pin = GPIO_PIN_2|GPIO_PIN_3|GPIO_PIN_8|GPIO_PIN_9
-                          |GPIO_PIN_15;
+  /*Configure GPIO pins : PA2 PA3 PA8 PA9 */
+  GPIO_InitStruct.Pin = GPIO_PIN_2|GPIO_PIN_3|GPIO_PIN_8|GPIO_PIN_9;
   GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 

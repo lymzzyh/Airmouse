@@ -57,12 +57,16 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define INT1_Pin GPIO_PIN_0
-#define INT1_GPIO_Port GPIOA
-#define FSYNC_Pin GPIO_PIN_1
-#define FSYNC_GPIO_Port GPIOA
+#define ICM_INT1_Pin GPIO_PIN_0
+#define ICM_INT1_GPIO_Port GPIOA
+#define ICM_FSYNC_Pin GPIO_PIN_1
+#define ICM_FSYNC_GPIO_Port GPIOA
+#define SPI1_CS_Pin GPIO_PIN_4
+#define SPI1_CS_GPIO_Port GPIOA
 #define USB_ENABLE_Pin GPIO_PIN_10
 #define USB_ENABLE_GPIO_Port GPIOA
+#define LED_Pin GPIO_PIN_15
+#define LED_GPIO_Port GPIOA
 
 /* USER CODE BEGIN Private defines */
 
