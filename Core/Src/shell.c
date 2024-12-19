@@ -85,24 +85,22 @@ int userShellUnlock(Shell *shell)
 void userShellInit(void)
 {
     osMutexAttr_t mutex_attr = {
-        "ShellLock",   // 锁的名称（可选）
-        osMutexPrioInherit, // 继承优先级
-        NULL,       // 额外的内存区域
-        0           // 内存区域的大小
+        "ShellLock",
+        .attr_bits = osMutexPrioInherit | osMutexRecursive,
     };
 
     osThreadAttr_t attr = {
         .name = "shell",
-        .stack_size = 256,
+        .stack_size = 1024,
         .priority = osPriorityNormal
     };
 
-    shellMutex = osMutexCreate(&mutex_attr);
+    shellMutex = osMutexNew(&mutex_attr);
 
     shell.write = userShellWrite;
     shell.read = userShellRead;
     shell.lock = userShellLock;
     shell.unlock = userShellUnlock;
     shellInit(&shell, shellBuffer, 512);
-    osThreadNew(shellTask, NULL, &attr);
+    osThreadNew(shellTask, &shell, &attr);
 }

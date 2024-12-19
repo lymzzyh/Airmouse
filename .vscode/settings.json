@@ -6,6 +6,8 @@
         "main.h": "c",
         "stm32f1xx_hal.h": "c",
         "log.h": "c",
-        "fcntl.h": "c"
+        "fcntl.h": "c",
+        "compare": "c",
+        "cstdlib": "c"
     }
 }

@@ -28,7 +28,7 @@
  * @brief 使用CR作为命令行回车触发
  *        可以和SHELL_ENTER_LF同时开启
  */
-#define     SHELL_ENTER_CR              0
+#define     SHELL_ENTER_CR              1
 
 /**
  * @brief 使用CRLF作为命令行回车触发

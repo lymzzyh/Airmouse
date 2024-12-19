@@ -21,7 +21,14 @@
 #include "usart.h"
 
 /* USER CODE BEGIN 0 */
+#include "cmsis_os.h"
+#include <stdio.h>
 
+static osSemaphoreId_t uart1RxSemaphore;
+
+static void uart1RxEventCallback(UART_HandleTypeDef *huart, uint16_t Pos);
+
+static void uart1ErrorEventCallback(UART_HandleTypeDef *huart);
 /* USER CODE END 0 */
 
 UART_HandleTypeDef huart1;
@@ -125,6 +132,8 @@ void HAL_UART_MspInit(UART_HandleTypeDef* uartHandle)
     HAL_NVIC_EnableIRQ(USART1_IRQn);
   /* USER CODE BEGIN USART1_MspInit 1 */
 
+    uart1RxSemaphore = osSemaphoreNew(1, 0, NULL);
+
   /* USER CODE END USART1_MspInit 1 */
   }
 }
@@ -154,10 +163,50 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
     HAL_NVIC_DisableIRQ(USART1_IRQn);
   /* USER CODE BEGIN USART1_MspDeInit 1 */
 
+    HAL_UART_UnRegisterRxEventCallback(&huart1);
+    HAL_UART_UnRegisterCallback(&huart1, HAL_UART_ERROR_CB_ID);
+    osSemaphoreDelete(uart1RxSemaphore);
+    uart1RxSemaphore = NULL;
+
   /* USER CODE END USART1_MspDeInit 1 */
   }
 }
 
 /* USER CODE BEGIN 1 */
+
+void uart1RxEventCallback(UART_HandleTypeDef *huart, uint16_t Pos)
+{
+  osSemaphoreRelease(uart1RxSemaphore);
+}
+
+void uart1ErrorEventCallback(UART_HandleTypeDef *huart)
+{
+  HAL_UARTEx_ReceiveToIdle_DMA(huart, huart->pRxBuffPtr, huart->RxXferSize);
+}
+
+int _read(int file, char *ptr, int len)
+{
+  (void)file;
+  uint16_t rxSize = 0;
+
+  HAL_UART_RegisterRxEventCallback(&huart1, uart1RxEventCallback);
+  HAL_UART_RegisterCallback(&huart1, HAL_UART_ERROR_CB_ID, uart1ErrorEventCallback);
+
+  HAL_UARTEx_ReceiveToIdle_DMA(&huart1, (uint8_t *)ptr, len);
+
+  osSemaphoreAcquire(uart1RxSemaphore, osWaitForever);
+
+  return huart1.RxXferSize - huart1.RxXferCount;
+}
+
+int __io_putchar(int ch)
+{
+  if(ch == '\n')
+  {
+    HAL_UART_Transmit(&huart1, (uint8_t *)"\r", 1, HAL_MAX_DELAY);
+  }
+  HAL_UART_Transmit(&huart1, (uint8_t *)&ch, 1, HAL_MAX_DELAY);
+  return ch;
+}
 
 /* USER CODE END 1 */

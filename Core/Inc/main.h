@@ -70,6 +70,8 @@ void Error_Handler(void);
 
 /* USER CODE BEGIN Private defines */
 
+void userShellInit(void);
+
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus
