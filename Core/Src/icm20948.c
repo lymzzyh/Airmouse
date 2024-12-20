@@ -246,9 +246,18 @@ void icm20948_gyro_low_pass_filter(uint8_t config)
 void icm20948_accel_low_pass_filter(uint8_t config)
 {
 	uint8_t new_val = read_single_icm20948_reg(ub_2, B2_ACCEL_CONFIG);
-	new_val |= config << 3;
+	new_val &= ~(0x07 << 3);
+	new_val |= (config & 0x07) << 3;
+	if(config != 0)
+	{
+		new_val |= 0x01;
+	}
+	else
+	{
+		new_val &= 0xFE;
+	}
 
-	write_single_icm20948_reg(ub_2, B2_GYRO_CONFIG_1, new_val);
+	write_single_icm20948_reg(ub_2, B2_ACCEL_CONFIG, new_val);
 }
 
 void icm20948_gyro_sample_rate_divider(uint8_t divider)
