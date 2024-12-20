@@ -51,6 +51,8 @@ target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user sources here
     Core/Src/shell.c
+    Core/Src/icm20948.c
+    Core/Src/9-Axis_Sensor.c
 )
 
 # Add include paths

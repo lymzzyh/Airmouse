@@ -19,8 +19,9 @@
 #include <stdio.h>
 
 
-Shell shell;
-char shellBuffer[512];
+static Shell shell;
+static Log shell_log;
+static char shellBuffer[512];
 
 static osMutexId_t shellMutex;
 
@@ -61,6 +62,7 @@ short userShellRead(char *data, unsigned short len)
  */
 int userShellLock(Shell *shell)
 {
+    UNUSED(shell);
     osMutexAcquire(shellMutex, osWaitForever);
     return 0;
 }
@@ -72,10 +74,19 @@ int userShellLock(Shell *shell)
  * 
  * @return int 0
  */
-int userShellUnlock(Shell *shell)
+static int userShellUnlock(Shell *shell)
 {
+    UNUSED(shell);
     osMutexRelease(shellMutex);
     return 0;
+}
+
+static void shellLogWrite(char *buffer, short len)
+{
+    if (shell_log.shell)
+    {
+        shellWriteEndLine(shell_log.shell, buffer, len);
+    }
 }
 
 /**
@@ -101,6 +112,13 @@ void userShellInit(void)
     shell.read = userShellRead;
     shell.lock = userShellLock;
     shell.unlock = userShellUnlock;
+
+    shell_log.write = shellLogWrite;
+    shell_log.level = LOG_DEBUG;
+    shell_log.active = 1;
+
+    logRegister(&shell_log, &shell);
+
     shellInit(&shell, shellBuffer, 512);
     osThreadNew(shellTask, &shell, &attr);
 }

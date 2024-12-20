@@ -1,6 +1,6 @@
 {
     "C_Cpp.codeAnalysis.clangTidy.enabled": true,
-    "C_Cpp.intelliSenseEngine": "Tag Parser",
+    "C_Cpp.intelliSenseEngine": "default",
     "files.associations": {
         "*.c": "c",
         "main.h": "c",
@@ -8,6 +8,8 @@
         "log.h": "c",
         "fcntl.h": "c",
         "compare": "c",
-        "cstdlib": "c"
+        "cstdlib": "c",
+        "cmsis_os.h": "c",
+        "icm20948.h": "c"
     }
 }

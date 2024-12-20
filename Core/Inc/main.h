@@ -71,6 +71,7 @@ void Error_Handler(void);
 /* USER CODE BEGIN Private defines */
 
 void userShellInit(void);
+void NineAxisSensorInit(void);
 
 /* USER CODE END Private defines */
 
