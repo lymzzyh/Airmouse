@@ -419,12 +419,12 @@ void icm20948_accel_full_scale_select(accel_full_scale full_scale)
 /* Static Functions */
 static void cs_high()
 {
-	HAL_GPIO_WritePin(ICM20948_SPI_CS_PIN_PORT, ICM20948_SPI_CS_PIN_NUMBER, SET);	
+	HAL_GPIO_WritePin(ICM20948_SPI_CS_PIN_PORT, ICM20948_SPI_CS_PIN_NUMBER, GPIO_PIN_SET);	
 }
 
 static void cs_low()
 {
-	HAL_GPIO_WritePin(ICM20948_SPI_CS_PIN_PORT, ICM20948_SPI_CS_PIN_NUMBER, RESET);
+	HAL_GPIO_WritePin(ICM20948_SPI_CS_PIN_PORT, ICM20948_SPI_CS_PIN_NUMBER, GPIO_PIN_RESET);
 }
 
 static void select_user_bank(userbank ub)

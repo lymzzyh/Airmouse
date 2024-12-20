@@ -39,7 +39,8 @@ void NineAxisSensorInit(void)
         .priority = osPriorityNormal1
     };
 
-    icm20948_init();    
+    icm20948_init(); 
+    ak09916_init();   
 
     logInfo("ICM-20948 Init Done\n");
 
