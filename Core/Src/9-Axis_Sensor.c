@@ -22,23 +22,22 @@ static void NineAxisThreadEntry(void *argument)
     {
         // icm20948_gyro_read_dps(&my_gyro);
         icm20948_accel_read_g(&my_accel);
-        /** 转换为m/s2 */
-        my_accel.x *= GRAVITY;
-        my_accel.y *= GRAVITY;
-        my_accel.z *= GRAVITY;
-
-        // ak09916_mag_read_uT(&my_mag);
-
+        
         /** 归一化处理 */
         double accel_magnitude = sqrt(my_accel.x * my_accel.x + my_accel.y * my_accel.y + my_accel.z * my_accel.z);
+
+        float pitch_accel = atan2(my_accel.y, my_accel.z) * 180 / M_PI;
 
         my_accel.x /= accel_magnitude;
         my_accel.y /= accel_magnitude;
         my_accel.z /= accel_magnitude;
 
-        float pitch_accel = atan2(my_accel.y, my_accel.z) * 180 / M_PI;
+        /** 转换为m/s2 */
+        my_accel.x *= GRAVITY;
+        my_accel.y *= GRAVITY;
+        my_accel.z *= GRAVITY;
 
-        logInfo("Accel: x:%.2f, y:%.2f, z:%.2f, a %.2f m/s2 pitch_accel %.2f", my_accel.x, my_accel.y, my_accel.z, accel_magnitude, pitch_accel);
+        logInfo("Accel: x:%.2f, y:%.2f, z:%.2f, a %.2f m/s2 pitch_accel %.2f", my_accel.x, my_accel.y, my_accel.z, accel_magnitude * GRAVITY, pitch_accel);
 
         osDelay(1000);
     }

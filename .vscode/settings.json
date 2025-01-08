@@ -10,6 +10,9 @@
         "compare": "c",
         "cstdlib": "c",
         "cmsis_os.h": "c",
-        "icm20948.h": "c"
+        "icm20948.h": "c",
+        "math.h": "c",
+        "icm_20948_c.h": "c",
+        "icm_20948_registers.h": "c"
     }
 }

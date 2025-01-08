@@ -11,7 +11,13 @@
                 "${workspaceFolder}/Middlewares/ST/STM32_USB_Device_Library/Core/Inc",
                 "${workspaceFolder}/Middlewares/ST/STM32_USB_Device_Library/Class/HID/Inc",
                 "${workspaceFolder}/Drivers/CMSIS/Device/ST/STM32F1xx/Include",
-                "${workspaceFolder}/Drivers/CMSIS/Include"
+                "${workspaceFolder}/Drivers/CMSIS/Include",
+                "${workspaceFolder}/Middlewares/Third_Party/ICM-20948/src/util",
+                "${workspaceFolder}/Middlewares/Third_Party/letter-shell/extensions/log",
+                "${workspaceFolder}/Middlewares/Third_Party/letter-shell/src",
+                "${workspaceFolder}/Middlewares/Third_Party/FreeRTOS/Source/include",
+                "${workspaceFolder}/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3",
+                "${workspaceFolder}/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2"
             ],
             "defines": [
                 "USE_HAL_DRIVER",
